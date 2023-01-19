@@ -1,9 +1,9 @@
 import { indexCustomers, createCustomer, showCustomer } from './api.js'
 
-import { onIndexCustomerSuccess, onFailure, onCreateCustomerSuccess, } from './ui.js'
+import { onIndexCustomerSuccess, onFailure, onCreateCustomerSuccess, onShowCustomerSuccess } from './ui.js'
 
 const createCustomerForm = document.querySelector('#create-customer-form')
-const showCustomerContainer = document.querySelector('#show-customer-container')
+const indexCustomerContainer = document.querySelector('#index-customer-container')
 
 indexCustomers()
 	.then((res) => res.json())
@@ -25,13 +25,14 @@ createCustomerForm.addEventListener('submit', (event) => {
         .catch(onFailure)
 })
 
-showCustomerContainer.addEventListener('click', (event) => {
+indexCustomerContainer.addEventListener('click', (event) => {
 	const id = event.target.getAttribute('data-id')
 
 	if (!id) return
 
 	showCustomer(id)
 		.then((res) => res.json())
+        // .then(console.log)
 		.then(res => {
             onShowCustomerSuccess(res.customer)
         })

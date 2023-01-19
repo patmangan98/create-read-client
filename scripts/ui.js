@@ -30,7 +30,7 @@ export const onShowCustomerSuccess = (customer) => {
 	div.innerHTML = `
         <h3>${customer.firstName} ${customer.lastName}</h3>
         <p>${customer.class}</p>
-        <p>${customer.strength}</p>
+        <p>${customer.contact}</p>
         <p>${customer._id}</p>
     `
 	showCustomerContainer.appendChild(div)
