@@ -32,6 +32,24 @@ export const onShowCustomerSuccess = (customer) => {
         <p>${customer.class}</p>
         <p>${customer.contact}</p>
         <p>${customer._id}</p>
+
+        <form data-id="${customer._id}">
+        <input type="text" name="firstName" value="${customer.firstName}">
+        <input type="text" name="lastName" value="${customer.lastName}">
+        <input type="text" name="contact" value="${customer.contact}">
+        <input type="text" name="description" value="${customer.description}">
+        <input type="submit" value="Update Customer">
+        </form>
+
+        <button data-id="${customer._id}">Delete Customer</button>
     `
 	showCustomerContainer.appendChild(div)
+}
+
+export const onUpdateCustomerSuccess = () => {
+    messageContainer.innerText = 'Update was successful'
+}
+
+export const onDeleteCustomerSuccess = () => {
+    messageContainer.innerText = 'Update was successful'
 }

@@ -1,9 +1,17 @@
-import { indexCustomers, createCustomer, showCustomer } from './api.js'
+import { indexCustomers, createCustomer, showCustomer, updateCustomer, deleteCustomer } from './api.js'
 
-import { onIndexCustomerSuccess, onFailure, onCreateCustomerSuccess, onShowCustomerSuccess } from './ui.js'
+import { 
+    onIndexCustomerSuccess, 
+    onFailure, 
+    onCreateCustomerSuccess, 
+    onShowCustomerSuccess,
+    onUpdateCustomerSuccess,
+    onDeleteCustomerSuccess 
+} from './ui.js'
 
 const createCustomerForm = document.querySelector('#create-customer-form')
 const indexCustomerContainer = document.querySelector('#index-customer-container')
+const showCustomerContainer = document.querySelector('#show-customer-container')
 
 indexCustomers()
 	.then((res) => res.json())
@@ -39,3 +47,28 @@ indexCustomerContainer.addEventListener('click', (event) => {
 		.catch(onFailure)
 })
 
+showCustomerContainer.addEventListener('submit', (event) => {
+	event.preventDefault()
+	const id = event.target.getAttribute('data-id')
+	const customerData = {
+		customer: {
+			firstName: event.target['firstName'].value,
+			lastName: event.target['lastName'].value,
+			strength: event.target['contact'].value,
+			class: event.target['description'].value,
+		},
+	}
+	updateCustomer(customerData, id)
+		.then(onUpdateCustomerSuccess)
+		.catch(console.error)
+})
+
+showCustomerContainer.addEventListener('click', (event) => {
+	const id = event.target.getAttribute('data-id')
+
+	if (!id) return
+
+	deleteCustomer(id)
+		.then(onDeleteCustomerSuccess)
+		.catch(onFailure)
+})
